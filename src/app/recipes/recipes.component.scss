@@ -1,0 +1,14 @@
+.recipes {
+    padding: 48px;
+    mat-card{
+        width: 100%;
+        max-width: 400px;
+        img{
+            height: 256px; /* adjust as needed */
+            object-fit: cover;
+          }
+    }
+    mat-card:hover {
+        cursor: pointer;
+    }
+}

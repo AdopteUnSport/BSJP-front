@@ -6,9 +6,20 @@
         </button>
         <span>Adopte un frigo</span>
       </div>
-      <mat-form-field>
-        <input matInput placeholder="Recherche">
-      </mat-form-field>
+      <div fxFlex="40%">
+        <mat-form-field class="search-input" appearance="fill">
+          <input matInput placeholder="Recherche">
+        </mat-form-field>
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <mat-menu #rightMenu="matMenu">
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
+      <button mat-icon-button [matMenuTriggerFor]="rightMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
       
     </mat-toolbar-row>
   </mat-toolbar>

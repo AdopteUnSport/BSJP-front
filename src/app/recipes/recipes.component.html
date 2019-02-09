@@ -1,3 +1,40 @@
-<p>
-  recipes works!
-</p>
+<div class="recipes">
+  <mat-grid-list cols="4" rowHeight="400px" gutterSize="32px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/1">
+              <img mat-card-image src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/creme-brulee-facile-2894406/52734072-1-fre-FR/Creme-brulee-facile.jpeg">
+              <mat-card-title>Recipe 1</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/2">
+          <img mat-card-image src="https://static.cuisineaz.com/400x320/i103360-gratin-de-brocolis-a-l-emmental.jpg">
+          <mat-card-title>Recipe 2</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/3">        
+            <img mat-card-image src="https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg">
+             <mat-card-title>Recipe 3</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/4">        
+          <img mat-card-image src="https://static.cuisineaz.com/400x320/i96291-beignets-d-oignons-onion-rings.jpg">
+          <mat-card-title>Recipe 4</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/5">        
+            <img mat-card-image src="https://image.afcdn.com/recipe/20130122/3856_origin.jpg">
+            <mat-card-title>Recipe 5</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card routerLink="/recipe/6">        
+            <img mat-card-image src="https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg">
+            <mat-card-title>Recipe 6</mat-card-title>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+</div>

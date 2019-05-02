@@ -1,25 +1,3 @@
 .dashboard{
-    mat-grid-list {
-        mat-grid-tile:hover {
-            box-shadow: 2px;
-        }
-        .fridge-tile {
-            background-color: #b3e5fc;
-        }
-        .recipe-tile {
-            background-color: #f8bbd0;
-        }
-        .perish-tile {
-            background-color: #ffcdd2;
-        }
-        .new-recipe-tile {
-            background-color: #c8e6c9;
-        }
-        .connect-tile {
-            background-color: #cfd8dc;
-        }
-        .scan-tile {
-            background-color: #fff9c4;
-        }
-    }   
+      
 }

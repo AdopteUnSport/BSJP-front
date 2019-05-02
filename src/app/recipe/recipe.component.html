@@ -1,12 +1,17 @@
-<mat-tab-group>
-  <mat-tab label="Recette">
-    <p>
-      recipe {{recipe}} works!
-    </p>
-  </mat-tab>
-  <mat-tab label="Ingredients">
-    ingredients
-  </mat-tab>
-</mat-tab-group>
+<div class="recipe">
+  <h2 class="mat-h2">Recipe {{recipe}}</h2>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div>
+        <h3 class="mat-h3">Content</h3>
+    </div>
+    <div>
+        <h3 class="mat-h3">Ingredients</h3>
+        <button mat-button (click)="addOnList()">Ajouter à la liste</button>
+    </div>
+    
+  </div>
+</div>
+
+
 
 

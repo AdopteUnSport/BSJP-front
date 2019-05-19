@@ -8,9 +8,11 @@ import { FridgeComponent } from './fridge/fridge.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScanComponent } from './scan/scan.component';
 import { ShoppingComponent } from './shopping/shopping.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
   { path: '', redirectTo : 'dashboard', pathMatch: 'full'},
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'fridge', component: FridgeComponent},
   { path: 'scan', component: ScanComponent},

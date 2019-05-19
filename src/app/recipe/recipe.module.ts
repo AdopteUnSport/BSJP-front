@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AppModule } from './../app.module';
 import { RecipeComponent } from './recipe.component';
 import { BottomShoppingListComponent } from 'src/app/shopping/bottom-shopping-list/bottom-shopping-list.component';
 
 @NgModule({
-  declarations: [RecipeComponent, BottomShoppingListComponent],
+  declarations: [RecipeComponent],
   imports: [
-    CommonModule, BottomShoppingListComponent
+    CommonModule,
+    AppModule
   ],
-  entryComponents: [BottomShoppingListComponent],
+  entryComponents: [BottomShoppingListComponent]
 })
-export class RecipeModule { }
+export class RecipeModule {
+
+ }

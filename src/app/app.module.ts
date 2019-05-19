@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
@@ -18,6 +19,7 @@ import { ShoppingComponent } from './shopping/shopping.component';
 import { ScanComponent } from './scan/scan.component';
 
 import { NavigationService } from './layout/navigation.service';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { NavigationService } from './layout/navigation.service';
     ScanComponent,
     NavigationComponent,
     ToolbarComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,9 @@ import { NavigationService } from './layout/navigation.service';
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    
+    HttpClientModule,
+  ],
+  exports : [
   ],
   providers: [NavigationService],
   bootstrap: [AppComponent]

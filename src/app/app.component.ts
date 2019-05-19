@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.sidenav);
     this.navigationService.setSidenav(this.sidenav);
   }
 }

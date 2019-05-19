@@ -14,12 +14,18 @@
           <mat-icon>search</mat-icon>
         </button>
       </div>
-      <mat-menu #rightMenu="matMenu">
-        <button mat-menu-item>Logout</button>
-      </mat-menu>
-      <button mat-icon-button [matMenuTriggerFor]="rightMenu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
+      <div *ngIf="isUserConnected()">
+        <mat-menu #rightMenu="matMenu">
+          <button mat-menu-item>Logout</button>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="rightMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      
+      <div *ngIf="!isUserConnected()">
+        <button mat-button>Connexion</button>
+      </div>
       
     </mat-toolbar-row>
   </mat-toolbar>

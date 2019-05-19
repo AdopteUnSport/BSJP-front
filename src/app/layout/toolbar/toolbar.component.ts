@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationService } from '../navigation.service';
 import { MatSidenav } from '@angular/material';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,8 +14,13 @@ export class ToolbarComponent implements OnInit {
     this.navigationService.toggle();
   }
 
+  public isUserConnected(){
+    return this.userService.hasUser();
+  }
+
   constructor(
-    private navigationService : NavigationService
+    private navigationService : NavigationService,
+    private userService: UserService,
   ) { }
 
   ngOnInit() {

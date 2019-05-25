@@ -8,5 +8,6 @@ pwd
 git pull 
 npm install
 npm run build
-pm2 start npm -- start
+export BUILD_ID=dontKillMePlease
+pm2 restart npm -- start
 exit

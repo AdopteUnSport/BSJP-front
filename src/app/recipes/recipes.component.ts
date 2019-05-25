@@ -13,12 +13,14 @@ export class RecipesComponent implements OnInit {
   recipes : Array<Recipe>;
 
   private load() {
-    const httpOptions = {
-      headers: new HttpHeaders()
-      .set("Access-Control-Allow-Origin", "*")
+    const httpOptions ={
+      headers : new HttpHeaders({
+        "Content-type":"application/json"
+     
+    }) 
     };
 
-
+    console.log(JSON.stringify(httpOptions));
     this.http.get<Array<Recipe>>("http://51.83.70.42:3000/recipe/", httpOptions).subscribe(response => {
       this.recipes = response;
       console.log(this.recipes);

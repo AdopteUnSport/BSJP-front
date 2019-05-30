@@ -1,0 +1,10 @@
+{
+    "/test": {
+      "target": "51.83.70.42:3000",
+      "secure": true,
+      "pathRewrite": {
+      "^/posts": ""
+    },
+      "changeOrigin": true
+    }
+  }

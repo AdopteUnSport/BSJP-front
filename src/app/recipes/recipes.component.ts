@@ -14,15 +14,24 @@ export class RecipesComponent implements OnInit {
 
   private load() {
     const httpOptions = {
-      headers: new HttpHeaders()
-      .set("Access-Control-Allow-Origin", "*")
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin':  '*',
+        'Content-Type': 'application/json'
+      })
     };
 
+
+    /*const httpOptions = {
+      headers: new HttpHeaders()
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Content-Type', 'application/json')
+    };*/
 
     this.http.get<Array<Recipe>>("http://51.83.70.42:3000/recipe/", httpOptions).subscribe(response => {
       this.recipes = response;
       console.log(this.recipes);
     })
+
   }
 
   constructor(

@@ -19,7 +19,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { ShoppingComponent } from './shopping/shopping.component';
 import { ScanComponent } from './scan/scan.component';
 import { IngredientCardComponent } from './ingredients/ingredient-card/ingredient-card.component';
-
+import { SlideshowModule } from 'ng-simple-slideshow';
 import { NavigationService } from './layout/navigation.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 
@@ -47,6 +47,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ReactiveFormsModule,
     RoutingModule,
     HttpClientModule,
+    SlideshowModule
   ],
   exports : [
   ],

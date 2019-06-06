@@ -1,0 +1,75 @@
+.link{
+    background-image: url("https://static.cuisineaz.com/400x320/i103360-gratin-de-brocolis-a-l-emmental.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 1000px;
+}
+.slogan{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-family: 'Flama Condensed';
+    font-weight: 400;
+    text-transform: uppercase;
+    transform: translate(-50%, -50%);
+}
+.badgeApple{
+    height: 50px;
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    
+    transform: translate(-50%, -50%);
+}
+.badgeGoogle{
+    height: 50px;
+    width: 10%;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    
+    transform: translate(-50%, -50%);
+}
+.best {
+    height: 350px;
+    width: 100%;
+    
+}
+.bestRecipe {
+    height: 350px;
+    width: 50%;
+    
+}
+.slider {
+    transform: translate(0%, -91%);
+    width: 50%;
+    position: absolute;
+    left: 50%;
+}
+.who {
+    height: 550px;
+    width: 80%;
+    margin: auto;
+    margin-top: 12%;
+    margin-bottom: 12%;
+}
+
+.who h3{
+    font-family: 'Flama Condensed';
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.function {
+    height: 550px;
+    width: 80%;
+    margin: auto;
+    margin-top: 12%;
+}
+
+.function h3{
+    font-family: 'Flama Condensed';
+    font-weight: 400;
+    text-transform: uppercase;
+}

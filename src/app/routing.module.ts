@@ -11,7 +11,7 @@ import { ShoppingComponent } from './shopping/shopping.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', redirectTo : 'dashboard', pathMatch: 'full'},
+  { path: '', redirectTo : 'welcome', pathMatch: 'full'},
   { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'fridge', component: FridgeComponent},

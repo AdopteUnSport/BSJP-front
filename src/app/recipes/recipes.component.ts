@@ -13,22 +13,6 @@ export class RecipesComponent implements OnInit {
   recipes : Array<Recipe>;
 
   private load() {
-<<<<<<< HEAD
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin':  '*',
-        'Content-Type': 'application/json'
-      })
-    };
-
-
-    /*const httpOptions = {
-      headers: new HttpHeaders()
-      .set('Access-Control-Allow-Origin', '*')
-      .set('Content-Type', 'application/json')
-    };*/
-
-=======
     const httpOptions ={
       headers : new HttpHeaders({
         "Content-type":"application/json"
@@ -37,7 +21,6 @@ export class RecipesComponent implements OnInit {
     };
 
     console.log(JSON.stringify(httpOptions));
->>>>>>> 896d1fbdf9cbc8b8c27ec90305b3a0981aa71824
     this.http.get<Array<Recipe>>("http://51.83.70.42:3000/recipe/", httpOptions).subscribe(response => {
       this.recipes = response;
       console.log(this.recipes);

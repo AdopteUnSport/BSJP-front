@@ -1,6 +1,5 @@
 pipeline {
    agent any
-  
   stages {
         
     stage('Cloning Git') {
@@ -14,6 +13,7 @@ pipeline {
         sh 'npm install'
       }
     }
+    
      
    /* stage('Test') {
       steps {

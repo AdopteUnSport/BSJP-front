@@ -23,8 +23,6 @@ pipeline {
     
       stage('Install dependencies') {
       when {branch 'master'}
-    
-        sh 'git checkout develop'
         sh 'git pull'
         sh 'npm install'
         }

@@ -19,6 +19,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'node -v'
+        sh 'npm rebuild node-sass'
          sh 'ng build --prod'
       }
     }    

@@ -1,6 +1,5 @@
 pipeline {
    agent any
-  when { branch "develop" }
   stages {
         
     stage('Cloning Git') {

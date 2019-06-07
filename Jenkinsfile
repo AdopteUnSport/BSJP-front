@@ -11,7 +11,7 @@ pipeline {
         
     stage('Install dependencies') {
       steps {
-        sh 'git branch develop'
+        sh 'git checkout develop'
         sh 'npm install'
       }
     }

@@ -3,9 +3,6 @@ echo "$USER"
 pwd
 cd /
 pwd
-cd /home/node-app/
-git clone https://github.com/AdopteUnSport/BSJP-front.git
-pwd
 export JENKINS_NODE_COOKIE=dontKillMe
 npm install
 ng build --prod

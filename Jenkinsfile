@@ -19,16 +19,19 @@ pipeline {
         }
       
       }
-    }
+    
     
       stage('Install dependencies') {
       when {branch 'master'}
-        sh 'git pull'
-        sh 'npm install'
+        steps{
+          sh 'git pull'
+          sh 'npm install'
         }
-      
+       
       }
-    }
+      
+      
+    
     stage('build') {
       steps {
         sh 'node -v'

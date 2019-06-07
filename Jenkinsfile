@@ -10,7 +10,6 @@ pipeline {
         
     stage('Install dependencies') {
       steps {
-        sh 'git branch develop'
         sh 'npm install'
       }
     }

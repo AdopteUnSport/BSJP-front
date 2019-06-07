@@ -10,7 +10,7 @@ pipeline {
     }
         
     stage('Install dependencies') {
-      when {branch 'develop'}
+      
       steps {
         sh 'printenv'
         sh 'git checkout develop'

@@ -12,26 +12,16 @@ pipeline {
     stage('Install dependencies') {
       when {branch 'develop'}
       steps {
-    
+        sh 'printenv'
         sh 'git checkout develop'
         sh 'git pull'
         sh 'npm install'
         }
       
       }
+    }
     
-    
-      stage('Install dependencies') {
-      when {branch 'master'}
-        steps{
-          sh 'git pull'
-          sh 'npm install'
-        }
-       
-      }
-      
-      
-    
+     
     stage('build') {
       steps {
         sh 'node -v'

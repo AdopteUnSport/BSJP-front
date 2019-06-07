@@ -5,7 +5,6 @@ pwd
 pwd
 export JENKINS_NODE_COOKIE=dontKillMe
 ls
-rm -Rf * /var/www/html
 cd dist/mvp-front/
 cp -r * /var/www/html
 exit

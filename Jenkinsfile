@@ -15,11 +15,11 @@ pipeline {
     }
     
      
-   /* stage('Test') {
+    stage('build') {
       steps {
-         sh 'npm test'
+         sh 'ng build --prod'
       }
-    }    */
+    }    
     stage('Deliver') { 
             steps {
                 sh './scripts/deploy' 

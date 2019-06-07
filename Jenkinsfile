@@ -9,7 +9,7 @@ pipeline {
       }
     }
         
-    stage('Install dependencies') {
+    stage('Install dependencies : DEV') {
       when {branch 'develop'}
       steps {
         sh 'printenv'
@@ -20,7 +20,17 @@ pipeline {
       
       }
     
-    
+      
+    stage('Install dependencies : MASTER') {
+      when {branch 'develop'}
+      steps {
+        sh 'printenv'
+        sh 'git checkout develop'
+        sh 'git pull'
+        sh 'npm install'
+        }
+      
+      }
      
     stage('build') {
       steps {

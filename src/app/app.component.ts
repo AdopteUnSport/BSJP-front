@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSidenav } from '@angular/material';
 import { NavigationService } from '../app/layout/navigation.service';
@@ -12,13 +12,32 @@ export class AppComponent implements OnInit {
 
   @ViewChild('sidenav') public sidenav: MatSidenav;
 
+  innerWidth : number;
+
+  mode: string;
+
   constructor(
     private navigationService : NavigationService
-    ) {
+  ) {}
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    this.updateModeSidenav();
   }
 
+  updateModeSidenav(): void {
+    if(this.innerWidth >= 1280) {
+      this.mode = "side";
+    } else {
+      this.mode = "over";
+    }
+  }
+
+
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
+    this.updateModeSidenav();
     this.navigationService.setSidenav(this.sidenav);
   }
 }

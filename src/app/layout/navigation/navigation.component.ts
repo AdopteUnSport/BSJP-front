@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  public isUserConnected(){
+    return this.userService.hasUser();
+  }
+
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
   }

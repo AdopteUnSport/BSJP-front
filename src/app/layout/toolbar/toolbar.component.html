@@ -4,9 +4,9 @@
         <button mat-icon-button (click)="toggleSidenav()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>Adopte un frigo</span>
+        <span fxHide.xs>Adopte un frigo</span>
       </div>
-      <div fxFlex="40%">
+      <div fxFlex="40%" fxHide.xs>
         <mat-form-field class="search-input" appearance="fill">
           <input matInput placeholder="Recherche">
         </mat-form-field>
@@ -14,7 +14,12 @@
           <mat-icon>search</mat-icon>
         </button>
       </div>
-      <div *ngIf="isUserConnected()">
+      <div fxHide.gt-xs>
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="isUserConnected()" fxHide.xs>
         <mat-menu #rightMenu="matMenu">
           <button mat-menu-item>Logout</button>
         </mat-menu>
@@ -23,7 +28,7 @@
         </button>
       </div>
       
-      <div *ngIf="!isUserConnected()">
+      <div *ngIf="!isUserConnected()" fxHide.xs>
         <button mat-button>Connexion</button>
       </div>
       

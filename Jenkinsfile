@@ -12,6 +12,7 @@ pipeline {
     stage('Install dependencies') {
       steps {
         sh 'git checkout develop'
+        sh 'git pull'
         sh 'npm install'
       }
     }

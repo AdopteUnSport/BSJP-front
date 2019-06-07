@@ -4,6 +4,7 @@ echo "tarace"
 pwd
 pwd
 export JENKINS_NODE_COOKIE=dontKillMe
-cd /dist/mvp-front
+ls
+cd /dist/
 cp -r * /var/www/html
 exit

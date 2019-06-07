@@ -1,5 +1,5 @@
 <div class="recipes">
-  <mat-grid-list cols="4" rowHeight="400px" gutterSize="32px">
+  <mat-grid-list cols="{{cols}}" rowHeight="400px" gutterSize="32px">
       <mat-grid-tile [colspan]="1" [rowspan]="1" ngFor = "recipe of recipes">
         <mat-card routerLink="/recipe/1">
               <img mat-card-image src="https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/elle-a-table/recettes-de-cuisine/creme-brulee-facile-2894406/52734072-1-fre-FR/Creme-brulee-facile.jpeg">

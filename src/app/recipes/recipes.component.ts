@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
+import { Component, OnInit,  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Recipe } from 'src/app/core/recipe';
+import { ResponsiveService } from 'src/app/services/responsive.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,6 +13,8 @@ import { Observable } from 'rxjs';
 export class RecipesComponent implements OnInit {
 
   recipes : Array<Recipe>;
+
+  cols: number;
 
   private load() {
     const httpOptions ={
@@ -23,18 +27,24 @@ export class RecipesComponent implements OnInit {
     console.log(JSON.stringify(httpOptions));
     this.http.get<Array<Recipe>>("http://51.83.70.42:3000/recipe/", httpOptions).subscribe(response => {
       this.recipes = response;
-      console.log(this.recipes);
     })
 
   }
 
   constructor(
     private http : HttpClient,
+    private responsive : ResponsiveService,
   ) { }
 
   ngOnInit() {
+    this.cols = this.responsive.getNbCols();
     this.recipes = new Array<Recipe>();
     this.load();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.cols = this.responsive.getNbCols();
   }
 
 }

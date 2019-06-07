@@ -1,11 +1,12 @@
 pipeline {
    agent any
-  
+  when { branch "develop" }
   stages {
         
     stage('Cloning Git') {
       steps {
         git 'https://github.com/AdopteUnSport/BSJP-front'
+        git branch develop
       }
     }
         
@@ -14,6 +15,7 @@ pipeline {
         sh 'npm install'
       }
     }
+    
      
    /* stage('Test') {
       steps {

@@ -5,12 +5,12 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git 'https://github.com/AdopteUnSport/BSJP-front'
-        git 'branch develop'
       }
     }
         
     stage('Install dependencies') {
       steps {
+        sh 'git branch develop'
         sh 'npm install'
       }
     }

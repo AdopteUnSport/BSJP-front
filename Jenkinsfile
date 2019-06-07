@@ -1,5 +1,6 @@
 pipeline {
    agent any
+    tools {nodejs "good node"}
   stages {
         
     stage('Cloning Git') {
@@ -15,11 +16,13 @@ pipeline {
     }
     
      
-   /* stage('Test') {
+    stage('build') {
       steps {
-         sh 'npm test'
+        sh 'node -v'
+        sh 'npm rebuild node-sass'
+         sh 'ng build --prod'
       }
-    }    */
+    }    
     stage('Deliver') { 
             steps {
                 sh './scripts/deploy' 

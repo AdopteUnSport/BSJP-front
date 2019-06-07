@@ -5,7 +5,7 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git 'https://github.com/AdopteUnSport/BSJP-front'
-        git branch develop
+        git 'branch develop'
       }
     }
         

@@ -1,5 +1,6 @@
 pipeline {
    agent any
+    tools {nodejs "good node"}
   stages {
         
     stage('Cloning Git') {

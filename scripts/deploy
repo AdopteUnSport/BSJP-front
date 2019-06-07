@@ -1,5 +1,6 @@
 #!/bin/sh
 echo "$USER"
+echo "tarace"
 pwd
 git pull
 pwd

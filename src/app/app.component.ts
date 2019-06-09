@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
 import { MatSidenav } from '@angular/material';
 import { NavigationService } from '../app/layout/navigation.service';
 
@@ -17,8 +18,21 @@ export class AppComponent implements OnInit {
   mode: string;
 
   constructor(
-    private navigationService : NavigationService
-  ) {}
+    private navigationService : NavigationService,
+    private iconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.iconRegistry.addSvgIcon(
+      `apple`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/apple-bw.svg")
+    );
+
+    this.iconRegistry.addSvgIcon(
+      `google`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/google-color.svg")
+    );
+
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {

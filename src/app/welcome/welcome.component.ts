@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeComponent implements OnInit {
 
   constructor() { }
-  height: string = '400px';
+  height: string = '480px';
   minHeight: string;
   arrowSize: string = '30px';
   showArrows: boolean = true;
@@ -34,15 +34,10 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
     this.imagesUrl = [
     
-    "https://static.cuisineaz.com/400x320/i103360-gratin-de-brocolis-a-l-emmental.jpg",
-     "https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg",
-    "https://static.cuisineaz.com/400x320/i96291-beignets-d-oignons-onion-rings.jpg",
-     "https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg",
-
-    "https://static.cuisineaz.com/400x320/i103360-gratin-de-brocolis-a-l-emmental.jpg",
-     "https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg",
-    "https://static.cuisineaz.com/400x320/i96291-beignets-d-oignons-onion-rings.jpg",
-     "https://static.cuisineaz.com/400x320/i16694-cuisses-de-lapin-a-la-moutarde.jpg"
+    "https://i.pinimg.com/originals/22/00/7d/22007d89fdb6b178488a2e1024a90fa6.jpg",
+     "https://www.pixelstalk.net/wp-content/uploads/2016/08/Desktop-Food-HD-Photos.jpg",
+    "https://cdn.wallpapersafari.com/13/11/FlRVO7.jpg",
+     "http://www.blogmais.org/ourimg/big/40/407237_food-wallpapers-free.jpg",
     ];
 }
 

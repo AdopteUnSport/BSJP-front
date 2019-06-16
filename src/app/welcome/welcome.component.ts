@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeComponent implements OnInit {
 
   constructor() { }
-  height: string = '480px';
+  height: string = '600px';
   minHeight: string;
   arrowSize: string = '30px';
   showArrows: boolean = true;

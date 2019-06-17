@@ -1,3 +1,24 @@
 <div class="dashboard">
- Daskboard
+        <mat-grid-list cols="{{cols}}" rowHeight="2:1" gutterSize="32px">
+                <mat-grid-tile [colspan]="2" [rowspan]="2" class="mat-elevation-z2">
+                    <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+                        <mat-icon matBadge="5" matBadgeColor="primary">kitchen</mat-icon>
+                        <h3>5 recettes disponibles</h3>
+                    </div>
+                    
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="1" [rowspan]="2" class="mat-elevation-z2">
+                    <mat-icon matBadge="9" matBadgeColor="primary">shopping_basket</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-elevation-z2">
+                    <mat-icon>favorite</mat-icon>
+                </mat-grid-tile>
+                <mat-grid-tile class="mat-elevation-z2">
+                        <mat-icon matBadge="4" matBadgeColor="warn">alarm</mat-icon>
+                </mat-grid-tile>
+                
+                <mat-grid-tile class="mat-elevation-z2">
+                    <mat-icon>crop_free</mat-icon>
+                </mat-grid-tile>
+              </mat-grid-list>
 </div>

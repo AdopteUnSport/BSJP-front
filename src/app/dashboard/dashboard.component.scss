@@ -1,15 +1,19 @@
+@import '~@angular/material/theming';
+@import '../../styles/app-theme.scss';
+
 .dashboard{
-      
-}
-	
-swiper{
-    height: 250px;
-    width: 80%;
-    margin: auto;
-}
- 
-.swiper-slide{
-    img{
-        width: 100%;
+    background-color: mat-color($primary, lighter, 1);
+    min-height: calc(100% - 64px);
+    height: auto;
+    padding: 32px;     
+
+    .mat-grid-tile {
+        background-color: white;
+        .mat-icon {
+            color: mat-color($primary);
+            font-size: 48px;
+            width: 48px;
+            height: 48px;
+        }
     }
 }

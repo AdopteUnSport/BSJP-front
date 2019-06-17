@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { ResponsiveService } from 'src/app/services/responsive.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  cols: number;
+
+  constructor(private responsive : ResponsiveService) { }
  
 
   ngOnInit() {
-  
-}
+    this.cols = this.responsive.getNbCols();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.cols = this.responsive.getNbCols();
+  }
 
 }

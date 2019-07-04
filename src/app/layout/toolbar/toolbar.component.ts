@@ -3,6 +3,9 @@ import { NavigationService } from '../navigation.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AuthDialogComponent } from '../../core/components/dialog/auth-dialog/auth-dialog.component';
+
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -25,14 +28,20 @@ export class ToolbarComponent implements OnInit {
     return true;
   }
 
+  public openDialog(){
+    this.dialog.open(AuthDialogComponent);
+    
+  }
+
   constructor(
     private navigationService : NavigationService,
     private userService: UserService,
-    private router: Router 
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    console.log(this.router);
+    
   }
 
 }

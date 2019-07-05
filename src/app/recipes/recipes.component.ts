@@ -17,13 +17,8 @@ export class RecipesComponent implements OnInit {
   cols: number;
 
   private load() {
-    const httpOptions ={
-      headers : new HttpHeaders({
-        "Content-type":"application/json"
-     
-    }) 
-    };
-    this.http.get<Array<Recipe>>("http://51.83.70.42:3000/recipe/", httpOptions).subscribe(response => {
+    this.http.get<Array<Recipe>>("/api/recipe/").subscribe(response => {
+      console.log(response);
       this.recipes = response;
     })
 

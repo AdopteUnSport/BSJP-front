@@ -8,7 +8,9 @@ export interface UserServiceInterface {
 
   getToken(): string;
 
-  login(login: string, password: string): Observable<any>;
+  login(userName: string, password: string): Observable<any>;
+
+  register(login: string, email: string, password: string): Observable<any>;
 }
 
 
@@ -25,11 +27,28 @@ export class UserService implements UserServiceInterface{
     return localStorage.getItem('token');
   }
 
-  public login(login: string, password: string): Observable<any>{
+  public login(userName: string, password: string): Observable<any>{
     let httpParams = new HttpParams()
-    .set('userId', login)
+    .set('userName', userName)
     .set('password', password);
-    return this.http.get<any>("http://51.83.70.42/user/login", {params: httpParams});
+    return this.http.get<any>("/api/user/login", {params: httpParams});
+  }
+
+  register(login: string, email: string, password: string): Observable<any>{
+    /*let httpParams = new HttpParams()
+    .set('username', login)
+    .set('email', email)
+    .set('password', password);
+    return this.http.post<any>("/api/user", {params: httpParams});*/
+
+    let body: any = {
+      username: login,
+      email: email,
+      password: password,
+    }
+
+    return this.http.post<any>("/api/user", body);
+
   }
 
   constructor(

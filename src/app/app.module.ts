@@ -22,6 +22,8 @@ import { IngredientCardComponent } from './ingredients/ingredient-card/ingredien
 import { SlideshowModule } from 'ng-simple-slideshow';
 import { NavigationService } from './layout/navigation.service';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     ReactiveFormsModule,
     RoutingModule,
     HttpClientModule,
-    SlideshowModule
+    SlideshowModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   exports : [
   ],

@@ -11,6 +11,8 @@ export interface UserServiceInterface {
   login(userName: string, password: string): Observable<any>;
 
   register(login: string, email: string, password: string): Observable<any>;
+
+  logout(): Observable<any>;
 }
 
 
@@ -19,8 +21,8 @@ export interface UserServiceInterface {
 })
 export class UserService implements UserServiceInterface{
 
-  public hasUser() {
-    return false;
+  public hasUser(): boolean {
+    return localStorage.getItem('user') !== null;
   }
 
   public getToken(): string {
@@ -31,15 +33,10 @@ export class UserService implements UserServiceInterface{
     let httpParams = new HttpParams()
     .set('userName', userName)
     .set('password', password);
-    return this.http.get<any>("/api/user/login", {params: httpParams});
+    return this.http.get<any>("/api/user/login", {params: httpParams})
   }
 
   register(login: string, email: string, password: string): Observable<any>{
-    /*let httpParams = new HttpParams()
-    .set('username', login)
-    .set('email', email)
-    .set('password', password);
-    return this.http.post<any>("/api/user", {params: httpParams});*/
 
     let body: any = {
       username: login,
@@ -48,8 +45,12 @@ export class UserService implements UserServiceInterface{
     }
 
     return this.http.post<any>("/api/user", body);
-
   }
+
+  public logout(): Observable<any>{
+    return this.http.get<any>("/api/user/logout");
+  }
+
 
   constructor(
     private http: HttpClient

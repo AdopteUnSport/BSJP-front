@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService, UserServiceInterface } from 'src/app/core/services/user.service';
+import { Location } from '@angular/common';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -23,7 +26,10 @@ export class AuthDialogComponent implements OnInit {
   isPasswordVisible: boolean = false;
 
   constructor(
+    public dialogRef: MatDialogRef<AuthDialogComponent>,
    @Inject(UserService) private userService : UserServiceInterface,
+   @Inject(Location) private location: Location,
+   @Inject(Router) private router: Router,
   ) { }
 
   ngOnInit() {
@@ -38,20 +44,28 @@ export class AuthDialogComponent implements OnInit {
         this.inscriptionForm.get('email').value,
         this.inscriptionForm.get('password').value
         ).subscribe(response => {
-          console.log(response);
+          localStorage.setItem("user", JSON.stringify(response));   
+          this.router.navigate(['dashboard']);
+          this.dialogRef.close();
+        }, error => {
+          console.log("error inscription");
         })
     }
-    
   }
 
   submitConnexion(){
-    console.log(this.connexionForm.value);
     if(this.connexionForm.valid) {
       this.userService.login(
         this.connexionForm.get('userName').value,
         this.connexionForm.get('password').value
         ).subscribe(response => {
-          console.log(response);
+          localStorage.setItem("user", JSON.stringify(response));   
+          this.router.navigate(['dashboard']);
+          this.dialogRef.close();
+          //this.location.go('/dashboard');
+
+        }, error => {
+          console.log("error identitifcation");
         })
     }
   }

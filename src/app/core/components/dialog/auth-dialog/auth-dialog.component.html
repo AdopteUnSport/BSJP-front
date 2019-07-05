@@ -41,7 +41,7 @@
           <div mat-dialog-content fxLayout="column">
             <mat-form-field>
                 <input matInput required type="text" formControlName="userName" placeholder="Pseudo">
-                <mat-error *ngIf="connexionForm.get('userName').hasError('required')">L'email est obligatoire</mat-error>
+                <mat-error *ngIf="connexionForm.get('userName').hasError('required')">Le pseudo est obligatoire</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <input matInput required [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Mot de passe">

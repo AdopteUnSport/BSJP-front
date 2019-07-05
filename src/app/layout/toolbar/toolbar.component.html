@@ -21,7 +21,7 @@
       </div>
       <div *ngIf="isUserConnected()" fxHide.xs>
         <mat-menu #rightMenu="matMenu">
-          <button mat-menu-item>Logout</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
         <button mat-icon-button [matMenuTriggerFor]="rightMenu">
           <mat-icon>more_vert</mat-icon>

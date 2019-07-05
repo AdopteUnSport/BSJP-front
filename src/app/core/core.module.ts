@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RoutingModule } from './../routing.module';
 import { MaterialModule } from "../material/material.module";
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
@@ -15,6 +16,7 @@ import { AuthDialogComponent } from './components/dialog/auth-dialog/auth-dialog
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+    RoutingModule,
     MatPasswordStrengthModule
   ],
   exports: [AuthDialogComponent]

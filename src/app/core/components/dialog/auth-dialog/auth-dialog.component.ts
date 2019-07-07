@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService, UserServiceInterface } from 'src/app/core/services/user.service';
-import { Location } from '@angular/common';
+import { SnackService, SnackServiceInterface } from 'src/app/core/services/snack.service';
 import { Router} from '@angular/router';
 
 @Component({
@@ -28,8 +28,8 @@ export class AuthDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AuthDialogComponent>,
    @Inject(UserService) private userService : UserServiceInterface,
-   @Inject(Location) private location: Location,
    @Inject(Router) private router: Router,
+   @Inject(SnackService) private snackService: SnackServiceInterface,
   ) { }
 
   ngOnInit() {
@@ -44,11 +44,11 @@ export class AuthDialogComponent implements OnInit {
         this.inscriptionForm.get('email').value,
         this.inscriptionForm.get('password').value
         ).subscribe(response => {
-          localStorage.setItem("user", JSON.stringify(response));   
           this.router.navigate(['dashboard']);
+          this.snackService.success("Bienvenue");
           this.dialogRef.close();
         }, error => {
-          console.log("error inscription");
+          this.snackService.error("Erreur lors de l'inscription");
         })
     }
   }
@@ -59,13 +59,11 @@ export class AuthDialogComponent implements OnInit {
         this.connexionForm.get('userName').value,
         this.connexionForm.get('password').value
         ).subscribe(response => {
-          localStorage.setItem("user", JSON.stringify(response));   
           this.router.navigate(['dashboard']);
+          this.snackService.success("Hello world");
           this.dialogRef.close();
-          //this.location.go('/dashboard');
-
         }, error => {
-          console.log("error identitifcation");
+          this.snackService.error("Erreur ! Login ou mot de passe incorrect");
         })
     }
   }

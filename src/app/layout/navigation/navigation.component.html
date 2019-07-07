@@ -1,11 +1,8 @@
 <mat-list class="navigation">
-    <mat-list-item *ngIf="isUserConnected()" fxHide.gt-xs>
-      <h3 mat-line>Prenom NomUser</h3>
-      <p mat-line>adressemailuser@user.com</p>
+    <mat-list-item *ngIf="isUserConnected()">
+      <h3 mat-line>{{getUserName()}}</h3>
+      <p mat-line>{{getUserEmail()}}</p>
     </mat-list-item>
-    <mat-list-item *ngIf="!isUserConnected()" fxHide.gt-xs>
-        <button mat-raised-button>Connexion</button>
-      </mat-list-item>
     <mat-list-item routerLink="dashboard">
         <mat-icon matListIcon>home</mat-icon>
         <h4 mat-line>Accueil</h4> 

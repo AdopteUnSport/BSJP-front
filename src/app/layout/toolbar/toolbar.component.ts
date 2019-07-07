@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../navigation.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
+
+import { MatDialog } from '@angular/material/dialog';
+import { AuthDialogComponent } from '../../core/components/dialog/auth-dialog/auth-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -25,14 +28,27 @@ export class ToolbarComponent implements OnInit {
     return true;
   }
 
+  public openDialog(){
+    this.dialog.open(AuthDialogComponent);
+  }
+
+  public logout(){
+    this.userService.logout().subscribe(response => {
+      localStorage.clear();
+      this.router.navigate(['welcome']);
+      this.navigationService.close();
+    })
+  }
+
   constructor(
     private navigationService : NavigationService,
     private userService: UserService,
-    private router: Router 
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    console.log(this.router);
+    
   }
 
 }

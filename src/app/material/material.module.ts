@@ -17,6 +17,7 @@ import {
   MatRippleModule,
   MatExpansionModule,
   MatBottomSheetModule,
+  MatSnackBarModule,
 
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -41,6 +42,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatRippleModule,
     MatExpansionModule,
     MatBottomSheetModule,
+    MatSnackBarModule,
   ],
   exports: [
     MatButtonModule,
@@ -61,6 +63,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatRippleModule,
     MatExpansionModule,
     MatBottomSheetModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {}

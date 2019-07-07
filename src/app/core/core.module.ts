@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoutingModule } from './../routing.module';
 import { MaterialModule } from "../material/material.module";
@@ -15,6 +16,7 @@ import { WelcomeSliderComponent } from './components/sliders/welcome-slider/welc
   imports: [
     CommonModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -22,6 +24,16 @@ import { WelcomeSliderComponent } from './components/sliders/welcome-slider/welc
     SlideshowModule,
     MatPasswordStrengthModule
   ],
-  exports: [AuthDialogComponent, WelcomeSliderComponent]
+  exports: [
+    //MODULES
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule,
+    RoutingModule,
+    //COMPONENTS
+    AuthDialogComponent, 
+    WelcomeSliderComponent],
 })
 export class CoreModule { }

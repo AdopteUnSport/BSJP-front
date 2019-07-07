@@ -18,13 +18,8 @@ import { AuthDialogComponent } from '../core/components/dialog/auth-dialog/auth-
   declarations: [NavigationComponent, ToolbarComponent],
   imports: [
     CommonModule,
-    HttpClientModule,
-    MaterialModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     CoreModule,
-    RoutingModule,
   ],
   exports: [NavigationComponent, ToolbarComponent],
   entryComponents: [AuthDialogComponent]

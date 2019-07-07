@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 
+import { CoreModule } from 'src/app/core/core.module';
+
 import { LayoutModule } from '../app/layout/layout.module';
 import { FridgeModule } from '../app/fridge/fridge.module';
 import { ShoppingModule } from '../app/shopping/shopping.module';
@@ -19,7 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RecipeComponent } from './recipe/recipe.component';
 import { ScanComponent } from './scan/scan.component';
 import { IngredientCardComponent } from './ingredients/ingredient-card/ingredient-card.component';
-import { SlideshowModule } from 'ng-simple-slideshow';
+
 import { NavigationService } from './layout/navigation.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 
@@ -44,7 +46,7 @@ import { AuthHttpInterceptor } from './interceptor/auth-http-interceptor';
     ReactiveFormsModule,
     RoutingModule,
     HttpClientModule,
-    SlideshowModule,
+    CoreModule,
     LayoutModule,
     FridgeModule,
     ShoppingModule

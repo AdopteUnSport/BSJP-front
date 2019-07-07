@@ -12,6 +12,14 @@ export class NavigationComponent implements OnInit {
     return this.userService.hasUser();
   }
 
+  public getUserName(): string {
+    return this.userService.getUserName();
+  }
+
+  public getUserEmail(): string {
+    return this.userService.getUserEmail();
+  }
+
   constructor(
     private userService: UserService,
   ) { }

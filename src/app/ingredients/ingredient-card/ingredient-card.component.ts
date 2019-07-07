@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Ingredient } from 'src/app/core/ingredient';
+import { Ingredient } from 'src/app/core/models/ingredient';
 
 @Component({
   selector: 'app-ingredient-card',

@@ -1,26 +1,6 @@
 <div class="welcome">
-    <div class="slider"> <slideshow 
-      [imageUrls]="imagesUrl"
-      [height]="height"
-      [minHeight]="minHeight"
-          [arrowSize]="arrowSize"
-          [showArrows]="showArrows"
-          [disableSwiping]="disableSwiping"
-          [autoPlay]="autoPlay"
-          [stopAutoPlayOnSlide]="stopAutoPlayOnSlide"
-          [debug]="debug"
-          [backgroundSize]="backgroundSize"
-          [backgroundPosition]="backgroundPosition"
-          [backgroundRepeat]="backgroundRepeat"
-          [showDots]="showDots"
-          [dotColor]="dotColor"
-          [showCaptions]="showCaptions"
-          [captionColor]="captionColor"
-          [captionBackground]="captionBackground"
-          [lazyLoad]="lazyLoad"
-          [hideOnNoSlides]="hideOnNoSlides"
-      [fullscreen]="fullscreen">>
-      </slideshow>
+    <div class="slider"> 
+      <app-welcome-slider [images]="sliderImages" height="600px" arrows="true"></app-welcome-slider>
       <div fxLayout="row" fxLayoutAlign="space-around" flex="30%" class="app-link">
         <a href="#" target="_blank">
           <img src="assets/icons/appstore_en.svg">
@@ -30,7 +10,7 @@
         </a>
       </div>
     </div>
-
+    
   <div class="features" fxLayout.gt-md="row" fxLayout.lt-lg="column" fxLayoutAlign="center center" fxLayoutGap="64px">
     <mat-card class="feature">
         <mat-card-content fxLayout="column" fxLayoutAlign="center center">

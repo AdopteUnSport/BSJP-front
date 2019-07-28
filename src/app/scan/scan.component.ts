@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable, interval } from 'rxjs';
+import { TesseractWorker } from 'tesseract.js';
 
 @Component({
   selector: 'app-scan',
@@ -14,19 +15,24 @@ export class ScanComponent implements OnInit {
   @ViewChild("canvas")
   public canvas: ElementRef;
 
+  private worker : TesseractWorker;
+
   private stream: MediaStream = null;
 
-  private scanTimer = interval(500);
+  private scanTimer = interval(5000);
 
-  public captures: Array<any>;
+  public captures: Array<HTMLImageElement>;
 
   public screenSubscribe: any;
 
   public isRunning: boolean = false;
 
+  private text: string = "";
+
   constructor() { }
 
   ngOnInit(){
+    this.worker = new TesseractWorker();
     this.captures = [];
     this.getMediaStream().then((stream) => {
       this.stream = stream;
@@ -57,23 +63,40 @@ export class ScanComponent implements OnInit {
 
   private capture() {
     var context = this.canvas.nativeElement.getContext("2d").drawImage(this.video.nativeElement, 0, 0, 640, 480);
-    this.captures.push(this.canvas.nativeElement.toDataURL("image/png"));
+    let image : HTMLImageElement = this.canvas.nativeElement.toDataURL("image/png");
+    this.captures.push(image);
+    this.stop();
+    this.parse(image);
   }
 
   public start(){
     this.isRunning = true;
     this.screenSubscribe = this.scanTimer.subscribe(val => {
-      this.capture()
+      this.capture();
+      
     })
   }
 
   public stop(){
     this.isRunning = false;
     this.screenSubscribe.unsubscribe();
+    console.log(this.captures);
   }
 
   public reset(){
     this.captures = [];
+  }
+
+  private parse(image : HTMLImageElement){
+    console.log("start parsing");
+    this.worker.recognize(image)
+  .progress(progress => {
+    console.log('progress', progress);
+  }).then(result => {
+    console.log('result', result);
+    console.log(result.text)
+    this.text = result.text;
+  });
   }
 
 }

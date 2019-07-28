@@ -9,9 +9,12 @@
       
   </div>
     
-    <div fxLayout="row">
-      <video #video id="video" autoplay></video>
-    
+    <div fxLayout="row" fxFlex>
+      <div fxLayout="column" fxFlex>
+          <video #video id="video" autoplay></video>
+          <p>Result : {{text}}</p>
+      </div>
+      
     <div fxLayout="column" class="screens">
         <canvas #canvas id="canvas" width="480" height="360"></canvas>
         <div fxFlex class="captures">

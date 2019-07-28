@@ -1,0 +1,20 @@
+.scan {
+    .header {
+        position: absolute;
+        width: 100%;
+        padding: 16px;
+    }
+    #video {
+        width: 100%;
+        height: auto; 
+    }
+    .screens {
+        padding: 16px;
+        .captures {
+            height: 360px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+    }
+    
+}

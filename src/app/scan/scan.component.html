@@ -1,3 +1,29 @@
-<p>
-  scan works!
-</p>
+<div class="scan">
+  <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <h2>Scan Feature - ({{captures.length}}) screens</h2>
+      <div fxFlex="10%" fxLayoutAlign="space-around center">
+          <button mat-raised-button (click)="start()" color="primary" *ngIf="!isRunning">START</button>
+          <button mat-raised-button (click)="stop()" color="warn" *ngIf="isRunning">STOP</button>
+          <button mat-mini-fab (click)="reset()" color="warn"><mat-icon>delete</mat-icon></button>
+      </div>
+      
+  </div>
+    
+    <div fxLayout="row">
+      <video #video id="video" autoplay></video>
+    
+    <div fxLayout="column" class="screens">
+        <canvas #canvas id="canvas" width="480" height="360"></canvas>
+        <div fxFlex class="captures">
+            <mat-grid-list cols="4" fxFlex="100%">
+                <mat-grid-tile *ngFor="let c of captures"
+                [colspan]="1"
+                [rowspan]="1">
+                    <img src="{{ c }}" height="100px" />
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+      </div>
+    </div>
+    
+</div>

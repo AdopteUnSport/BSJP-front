@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Observable, interval } from 'rxjs';
 import { TesseractWorker } from 'tesseract.js';
+import { TessractObj } from './ocr/tessearct-obj';
+import { TesseractTicket } from './tesseract-ticket';
+
 
 @Component({
   selector: 'app-scan',
@@ -19,7 +22,13 @@ export class ScanComponent implements OnInit {
 
   private stream: MediaStream = null;
 
-  private scanTimer = interval(5000);
+  private scanTimer = interval(200);
+
+  public nbScreen: number = 0;
+
+  public maxScreen : number = 10;
+
+  public interval : number = 200;
 
   public captures: Array<HTMLImageElement>;
 
@@ -27,11 +36,15 @@ export class ScanComponent implements OnInit {
 
   public isRunning: boolean = false;
 
-  private text: string = "";
+  private tesseractObjs: Array<TessractObj>;
+
+  private buildTicket: TesseractTicket;
 
   constructor() { }
 
   ngOnInit(){
+    this.buildTicket = new TesseractTicket();
+    this.tesseractObjs = new Array<TessractObj>();
     this.worker = new TesseractWorker();
     this.captures = [];
     this.getMediaStream().then((stream) => {
@@ -65,12 +78,43 @@ export class ScanComponent implements OnInit {
     var context = this.canvas.nativeElement.getContext("2d").drawImage(this.video.nativeElement, 0, 0, 640, 480);
     let image : HTMLImageElement = this.canvas.nativeElement.toDataURL("image/png");
     this.captures.push(image);
-    this.stop();
-    this.parse(image);
+    this.parseTesseract(image);
+    this.nbScreen ++;
+    if(this.nbScreen === this.maxScreen){
+      this.stop();
+    }
   }
+
+  
+
+  private parseTesseract(image : HTMLImageElement){
+    const workerT = new TesseractWorker();
+    console.log("start parsing");
+    workerT.recognize(image)
+  .progress(progress => {
+    console.log('progress', progress);
+  }).then((result: TessractObj) => {
+    console.log('result', result);
+    console.log(result.text)
+    this.tesseractObjs.push(result);
+    this.mapTicket(result)
+  });
+  }
+
+  private mapTicket(objT: TessractObj) {
+    objT.lines.forEach(line => {
+      if(line.confidence >= 85) {
+        if(this.buildTicket.lines.find(l => l.text === line.text) === undefined){
+          this.buildTicket.lines.push(line);
+        }
+      }
+    })
+  }
+
 
   public start(){
     this.isRunning = true;
+    this.reset();
     this.screenSubscribe = this.scanTimer.subscribe(val => {
       this.capture();
       
@@ -80,23 +124,12 @@ export class ScanComponent implements OnInit {
   public stop(){
     this.isRunning = false;
     this.screenSubscribe.unsubscribe();
-    console.log(this.captures);
   }
 
   public reset(){
     this.captures = [];
+    this.nbScreen = 0;
+    this.tesseractObjs = new Array<TessractObj>();
+    this.buildTicket = new TesseractTicket();
   }
-
-  private parse(image : HTMLImageElement){
-    console.log("start parsing");
-    this.worker.recognize(image)
-  .progress(progress => {
-    console.log('progress', progress);
-  }).then(result => {
-    console.log('result', result);
-    console.log(result.text)
-    this.text = result.text;
-  });
-  }
-
 }

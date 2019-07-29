@@ -12,12 +12,27 @@
     <div fxLayout="row" fxFlex>
       <div fxLayout="column" fxFlex>
           <video #video id="video" autoplay></video>
-          <p>Result : {{text}}</p>
+            <div>
+              <h2>Frames</h2>
+              <div fxLayout="column" *ngFor="let tsrObj of tesseractObjs;let i = index">
+                  <h3>Frame {{i}}</h3>
+                    <div fxLayout="row" fxFlex>   
+                        <img src="{{ captures[i] }}" height="100px" />
+                        <div fxLayout="column" class="tsrObj">
+                            <div *ngFor="let line of tsrObj.lines" fxFlex fxLayoutAlign="space-between center">
+                              <p>{{line.text}}</p>
+                              <p>Cert : {{line.confidence}}</p>
+                            </div>
+                        </div>
+                    </div> 
+                    <mat-divider></mat-divider>                  
+              </div>
+            </div>  
       </div>
       
     <div fxLayout="column" class="screens">
         <canvas #canvas id="canvas" width="480" height="360"></canvas>
-        <div fxFlex class="captures">
+        <div fxFlex class="captures" *ngIf="false">
             <mat-grid-list cols="4" fxFlex="100%">
                 <mat-grid-tile *ngFor="let c of captures"
                 [colspan]="1"
@@ -25,6 +40,14 @@
                     <img src="{{ c }}" height="100px" />
                 </mat-grid-tile>
             </mat-grid-list>
+        </div>
+        <div class="result-ticket">
+          <h2>Sortie</h2>
+          <div *ngIf="buildTicket">
+            <p *ngFor="let line of buildTicket.lines">
+              {{line.text}}
+            </p>
+          </div>
         </div>
       </div>
     </div>

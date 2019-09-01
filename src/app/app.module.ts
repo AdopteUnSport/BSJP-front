@@ -40,7 +40,7 @@ import { environment } from '../environments/environment';
     ScanModule,
     RecipesModule,
     IngredientsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: true }),
   ],
   exports : [
   ],

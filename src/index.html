@@ -21,4 +21,11 @@
    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
    crossorigin=""></script>
 </body>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('ngsw-worker.js')
+      .then(() => console.log('service worker installed'))
+      .catch(err => console.error('Error', err));
+  }
+</script>
 </html>

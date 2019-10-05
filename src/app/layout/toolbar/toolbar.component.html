@@ -1,12 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z8">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
       <div>
-        <button mat-icon-button (click)="toggleSidenav()">
+        <button mat-icon-button (click)="toggleSidenav()" *ngIf="showToggleSidenav()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>Adopte un frigo</span>
+        <span fxHide.xs>Adopte un frigo</span>
       </div>
-      <div fxFlex="40%">
+      <div fxFlex="40%" fxHide.xs>
         <mat-form-field class="search-input" appearance="fill">
           <input matInput placeholder="Recherche">
         </mat-form-field>
@@ -14,17 +14,22 @@
           <mat-icon>search</mat-icon>
         </button>
       </div>
-      <div *ngIf="isUserConnected()">
+      <div fxHide.gt-xs>
+        <button mat-icon-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="isUserConnected()" fxHide.xs>
         <mat-menu #rightMenu="matMenu">
-          <button mat-menu-item>Logout</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
         <button mat-icon-button [matMenuTriggerFor]="rightMenu">
           <mat-icon>more_vert</mat-icon>
         </button>
       </div>
       
-      <div *ngIf="!isUserConnected()">
-        <button mat-button>Connexion</button>
+      <div *ngIf="!isUserConnected()" fxHide.xs>
+        <button mat-button (click)="openDialog()">Nous rejoindre</button>
       </div>
       
     </mat-toolbar-row>

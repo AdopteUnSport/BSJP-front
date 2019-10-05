@@ -1,0 +1,64 @@
+<div class="auth-dialog">
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Inscription">
+      <form [formGroup]="inscriptionForm" (ngSubmit)="submitInscription()" fxFlex fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="dialog-content">
+          <h1 mat-dialog-title>S'inscrire</h1>
+          <div mat-dialog-content fxLayout="column">
+            <mat-form-field>
+              <input matInput required type="text" formControlName="userName" placeholder="Pseudo">
+              <mat-error *ngIf="inscriptionForm.get('userName').hasError('required')">Le pseudo est obligatoire</mat-error>
+              <mat-error *ngIf="inscriptionForm.get('userName').hasError('minlength')">Le pseudo doit faire au moins 6 caractères</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput required type="email" formControlName="email" placeholder="Adresse email">
+              <mat-error *ngIf="inscriptionForm.get('email').hasError('required')">L'email est obligatoire</mat-error>
+              <mat-error *ngIf="inscriptionForm.get('email').hasError('email')">Vous devez saisir un email</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+              <input matInput required [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Mot de passe">
+              <button mat-button matSuffix (click)="togglePasswordVisibilty()">
+                  <mat-icon *ngIf="isPasswordVisible">visibility</mat-icon>
+                  <mat-icon *ngIf="!isPasswordVisible">visibility_off</mat-icon>
+              </button>
+              <mat-error *ngIf="inscriptionForm.get('password').hasError('required')">Le mot de passe est obligatoire</mat-error>
+              <mat-error *ngIf="inscriptionForm.get('password').hasError('minlength')">Le mot de passe doit faire au moins 6 caractères</mat-error>
+            </mat-form-field>
+            <mat-password-strength  [password]="inscriptionForm.get('password').value">
+            </mat-password-strength>
+          </div>
+        </div>
+        <div class="dialog-actions" mat-dialog-actions fxLayoutAlign="space-around center">
+            <button mat-stroked-button >Annuler</button>
+            <button mat-flat-button color="primary" type="submit">Valider</button>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Connexion">
+      <form [formGroup]="connexionForm" (ngSubmit)="submitConnexion()" fxFlex fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="dialog-content">
+          <h1 mat-dialog-title>Connectez-vous</h1>
+          <div mat-dialog-content fxLayout="column">
+            <mat-form-field>
+                <input matInput required type="text" formControlName="userName" placeholder="Pseudo">
+                <mat-error *ngIf="connexionForm.get('userName').hasError('required')">Le pseudo est obligatoire</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput required [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" placeholder="Mot de passe">
+                <button mat-button matSuffix (click)="togglePasswordVisibilty()">
+                    <mat-icon *ngIf="isPasswordVisible">visibility</mat-icon>
+                    <mat-icon *ngIf="!isPasswordVisible">visibility_off</mat-icon>
+                </button>
+                <mat-error *ngIf="connexionForm.get('password').hasError('required')">Le mot de passe est obligatoire</mat-error>
+            </mat-form-field>
+            <a href="#" class="link forgot-password">Mot de passe oublié</a>
+          </div>
+        </div>
+        <div class="dialog-actions" mat-dialog-actions fxLayoutAlign="space-around center">
+            <button mat-stroked-button >Annuler</button>
+            <button mat-flat-button color="primary" type="submit">Valider</button>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

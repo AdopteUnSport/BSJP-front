@@ -1,75 +1,87 @@
-.link{
-    background-image: url("https://static.cuisineaz.com/400x320/i103360-gratin-de-brocolis-a-l-emmental.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
-    height: 1000px;
-}
-.slogan{
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    font-family: 'Flama Condensed';
-    font-weight: 400;
-    text-transform: uppercase;
-    transform: translate(-50%, -50%);
-}
-.badgeApple{
-    height: 50px;
-    width: 10%;
-    position: absolute;
-    top: 50%;
-    left: 45%;
-    
-    transform: translate(-50%, -50%);
-}
-.badgeGoogle{
-    height: 50px;
-    width: 10%;
-    position: absolute;
-    top: 50%;
-    left: 60%;
-    
-    transform: translate(-50%, -50%);
-}
-.best {
-    height: 350px;
-    width: 100%;
-    
-}
-.bestRecipe {
-    height: 350px;
-    width: 50%;
-    
-}
-.slider {
-    transform: translate(0%, -91%);
-    width: 50%;
-    position: absolute;
-    left: 50%;
-}
-.who {
-    height: 550px;
-    width: 80%;
-    margin: auto;
-    margin-top: 12%;
-    margin-bottom: 12%;
-}
+@import '~@angular/material/theming';
+@import '../../styles/app-theme.scss';
+.welcome {
 
-.who h3{
-    font-family: 'Flama Condensed';
-    font-weight: 400;
-    text-transform: uppercase;
-}
+    .app-link {
+        position: absolute;
+        width: 100%;
+        margin: auto;
+        top: 380px;
+        .mat-raised-button {
+            span {
+                margin-left: 4px;
+            }
+        }
+    }
 
-.function {
-    height: 550px;
-    width: 80%;
-    margin: auto;
-    margin-top: 12%;
-}
+    .features {
+        height: auto;
+        background-color: mat-color($primary, lighter, 1);
+        padding: 64px;
+        .feature {
+            width: 400px; // set with media screen
 
-.function h3{
-    font-family: 'Flama Condensed';
-    font-weight: 400;
-    text-transform: uppercase;
+            .icon {
+                margin-top: 16px;
+                margin-bottom: 32px;
+                border-radius: 50%;
+                width: 192px;
+                height: 192px;
+                background-color: mat-color($primary);
+                color: mat-color($primary, lighter, 1);
+                .mat-icon {
+                    font-size: 64px;
+                    width: 64px;
+                    height: 64px;
+                }
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 500 !important;
+                line-height: 32px;
+                color: black;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .recipes {
+        height: auto;
+        padding: 64px;
+
+        .recipe-text {
+            width: 480px;
+            h2 {
+                color: mat-color($primary);
+                font-size: 32px;
+            }
+            p {
+                font-size: 16px;
+                font-weight: 500 !important;
+                line-height: 32px;
+                color: black;
+                opacity: 0.5;
+            }
+        }
+
+
+        .recipe-img {
+            width: 600px;
+            height: 600px;
+            img {
+                width: 600px;
+                height: 600px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+        }
+
+    }
+
+    footer {
+        background-color: mat-color($primary);
+        color: white;
+        height: 92px;
+    }
 }

@@ -1,6 +1,10 @@
+import { ICategory } from './category';
+
 export class Ingredient {
-    id: number;
-    nom: string;
-    description: string;
-    image: string;
+    _id: string;
+    category: ICategory;
+    name: string;
+    quantity: number;
+    tags: Array<string>;
+    image?:string;
 }

@@ -34,7 +34,7 @@ export class UserService implements UserServiceInterface{
       _id : 'azdazazdzdazsqd2qsd15',
       category:{
         id: "dazdazdazdaz",
-        name: "viande"
+        name: "viandes"
       },
       
       name:"bacon",
@@ -45,7 +45,7 @@ export class UserService implements UserServiceInterface{
       _id : "azdazazdzdazsqd2qsd15",
       category:{
         id: "dazdazdazdaz",
-        name: "legume"
+        name: "légumes"
       },
       name:"poivrons",
       quantity:5,
@@ -55,7 +55,7 @@ export class UserService implements UserServiceInterface{
       _id : "azdazazdzdazsqd2qsd15",
       category:{
         id: "dazdazdazdaz",
-        name: "poisson"
+        name: "poissons"
       },
       name:"saumon fumé",
       quantity:1,
@@ -65,7 +65,7 @@ export class UserService implements UserServiceInterface{
       _id : "azdazazdzdazsqd2qsd15",
       category:{
         id: "dazdazdazdaz",
-        name: "fruit"
+        name: "fruits"
       },
       name:"pomme",
       quantity:12,

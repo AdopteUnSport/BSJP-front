@@ -1,18 +1,18 @@
 <mat-tab-group [selectedIndex]="activeTab" (selectedIndexChange)="tabChanged($event)">
   <mat-tab label="Tous">
-    <app-fridge-content></app-fridge-content>
+    <app-fridge-content [(fridge)]="fridge"></app-fridge-content>
   </mat-tab>
   <mat-tab label="Fruits">
-      <app-fridge-content></app-fridge-content>
+      <app-fridge-content  [(fridge)]="fridge"></app-fridge-content>
   </mat-tab>
   
   <mat-tab label="Légumes">
-      <app-fridge-content></app-fridge-content>
+      <app-fridge-content  [(fridge)]="fridge"></app-fridge-content>
   </mat-tab>
   <mat-tab label="Viandes">
-      <app-fridge-content></app-fridge-content>
+      <app-fridge-content  [(fridge)]="fridge"></app-fridge-content>
   </mat-tab>
   <mat-tab label="Poissons">
-      <app-fridge-content></app-fridge-content>
+      <app-fridge-content  [(fridge)]="fridge"></app-fridge-content>
   </mat-tab>
 </mat-tab-group>

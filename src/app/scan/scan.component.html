@@ -1,55 +1,50 @@
-<div class="scan">
+<div class="scan" fxLayout="column">
   <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
       <h2>Scan Feature - ({{captures.length}}) screens</h2>
-      <div fxFlex="10%" fxLayoutAlign="space-around center">
-          <button mat-raised-button (click)="start()" color="primary" *ngIf="!isRunning">START</button>
-          <button mat-raised-button (click)="stop()" color="warn" *ngIf="isRunning">STOP</button>
-          <button mat-mini-fab (click)="reset()" color="warn"><mat-icon>delete</mat-icon></button>
-      </div>
-      
   </div>
     
     <div fxLayout="row" fxFlex>
-      <div fxLayout="column" fxFlex>
-          <video #video id="video" autoplay></video>
-            <div>
-              <h2>Frames</h2>
-              <div fxLayout="column" *ngFor="let tsrObj of tesseractObjs;let i = index">
-                  <h3>Frame {{i}}</h3>
-                    <div fxLayout="row" fxFlex>   
-                        <img src="{{ captures[i] }}" height="100px" />
-                        <div fxLayout="column" class="tsrObj">
-                            <div *ngFor="let line of tsrObj.lines" fxFlex fxLayoutAlign="space-between center">
-                              <p>{{line.text}}</p>
-                              <p>Cert : {{line.confidence}}</p>
-                            </div>
-                        </div>
-                    </div> 
-                    <mat-divider></mat-divider>                  
-              </div>
-            </div>  
-      </div>
-      
-    <div fxLayout="column" class="screens">
-        <canvas #canvas id="canvas" width="480" height="360"></canvas>
-        <div fxFlex class="captures" *ngIf="false">
-            <mat-grid-list cols="4" fxFlex="100%">
-                <mat-grid-tile *ngFor="let c of captures"
-                [colspan]="1"
-                [rowspan]="1">
-                    <img src="{{ c }}" height="100px" />
-                </mat-grid-tile>
-            </mat-grid-list>
+      <video #video id="video" autoplay></video>   
+
+      <div fxFlex fxLayout="column">
+        <div fxFlex fxLayoutAlign="space-around center">
+            <button mat-raised-button (click)="start()" color="primary" *ngIf="!isRunning">START</button>
+            <button mat-raised-button (click)="stop()" color="warn" *ngIf="isRunning">STOP</button>
+            <button mat-mini-fab (click)="reset()" color="warn"><mat-icon>delete</mat-icon></button>
         </div>
-        <div class="result-ticket">
-          <h2>Sortie</h2>
-          <div *ngIf="buildTicket">
-            <p *ngFor="let line of buildTicket.lines">
-              {{line.text}}
-            </p>
+        <div fxFlex>
+          <p>Nombre de Frames {{maxScreen}}</p>
+          <mat-slider min="1" max="10" [(ngModel)]="maxScreen" placeholder="Nombre de Frames" [disabled]="isRunning"></mat-slider>
+            <mat-spinner *ngIf="isRunning"></mat-spinner>
+        </div>
+      </div>
+      <canvas #canvas id="canvas" width="480" height="360"></canvas>
+    </div>
+    <div class="result" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <h2>Frames</h2>
+          <div fxLayout="column" *ngFor="let tsrObj of tesseractObjs;let i = index">
+              <h3>Frame {{i}}</h3>
+                <div fxLayout="row" fxFlex>   
+                    <img src="{{ captures[i] }}" height="100px" />
+                    <div fxLayout="column" class="tsrObj">
+                        <div *ngFor="let line of tsrObj.lines" fxFlex fxLayoutAlign="space-between center">
+                          <p>{{line.text}}</p>
+                          <p>Cert : {{line.confidence}}</p>
+                        </div>
+                    </div>
+                </div> 
+                <mat-divider></mat-divider>                  
           </div>
         </div>
-      </div>
+        <div class="result-ticket">
+            <h2>Sortie ({{buildTicket.lines.length}}) items</h2>
+            <div *ngIf="buildTicket">
+              <p *ngFor="let line of buildTicket.lines">
+                {{line.text}}
+              </p>
+            </div>
+          </div> 
     </div>
     
 </div>

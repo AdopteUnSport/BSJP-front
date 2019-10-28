@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Observable, interval } from 'rxjs';
+import { ProductService } from './../core/services/product.service';
 import { TesseractWorker } from 'tesseract.js';
 import { TessractObj } from './ocr/tessearct-obj';
 import { TesseractTicket } from './tesseract-ticket';
@@ -26,7 +27,7 @@ export class ScanComponent implements OnInit {
 
   public nbScreen: number = 0;
 
-  public maxScreen : number = 10;
+  public maxScreen : number = 2;
 
   public interval : number = 200;
 
@@ -40,7 +41,9 @@ export class ScanComponent implements OnInit {
 
   private buildTicket: TesseractTicket;
 
-  constructor() { }
+  constructor(
+    @Inject(ProductService) public productService : ProductService,
+  ) { }
 
   ngOnInit(){
     this.buildTicket = new TesseractTicket();
@@ -106,6 +109,11 @@ export class ScanComponent implements OnInit {
       if(line.confidence >= 85) {
         if(this.buildTicket.lines.find(l => l.text === line.text) === undefined){
           this.buildTicket.lines.push(line);
+          let search = line.words.join(" ")
+          this.productService.getProducts(search).subscribe(response => {
+
+            console.log(response);
+          })
         }
       }
     })

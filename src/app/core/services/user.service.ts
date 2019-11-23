@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/core/models/user';
 import { Router} from '@angular/router';
 import { Ingredient } from '../models/ingredient';
 
 export interface UserServiceInterface {
-
-  hasUser() : boolean;
+  isLogged$ : BehaviorSubject<boolean>;
+  hasUser() : void;
 
   getUser() : User;
 
@@ -17,11 +17,11 @@ export interface UserServiceInterface {
 
   getToken(): string;
 
-  login(userName: string, password: string): Observable<any>;
+  login(userName: string, password: string) :Observable<any>;
 
   register(login: string, email: string, password: string): Observable<any>;
-
-  logout(): Observable<any>;
+  update(user : User) : Observable<any>
+  logout(): void;
 }
 
 
@@ -29,11 +29,13 @@ export interface UserServiceInterface {
   providedIn: 'root'
 })
 export class UserService implements UserServiceInterface{
+  public isLogged$ = new BehaviorSubject<boolean>(false);
+  public isLogged : boolean = false;
   public mockFridge:Ingredient[]=[
     {
       _id : 'azdazazdzdazsqd2qsd15',
       category:{
-        id: "dazdazdazdaz",
+        _id: "dazdazdazdaz",
         name: "viandes"
       },
       
@@ -44,7 +46,7 @@ export class UserService implements UserServiceInterface{
     {
       _id : "azdazazdzdazsqd2qsd15",
       category:{
-        id: "dazdazdazdaz",
+        _id: "dazdazdazdaz",
         name: "légumes"
       },
       name:"poivrons",
@@ -54,7 +56,7 @@ export class UserService implements UserServiceInterface{
     {
       _id : "azdazazdzdazsqd2qsd15",
       category:{
-        id: "dazdazdazdaz",
+        _id: "dazdazdazdaz",
         name: "poissons"
       },
       name:"saumon fumé",
@@ -64,7 +66,7 @@ export class UserService implements UserServiceInterface{
     {
       _id : "azdazazdzdazsqd2qsd15",
       category:{
-        id: "dazdazdazdaz",
+        _id: "dazdazdazdaz",
         name: "fruits"
       },
       name:"pomme",
@@ -72,20 +74,35 @@ export class UserService implements UserServiceInterface{
       tags: ["fruit","pomme","rouge","sucré"]
     }
   ]
-  public hasUser(): boolean {
-    return localStorage.getItem('user') !== null;
+  public hasUser(): Observable<boolean> {
+    return this.isLogged$.asObservable();
   }
-
   public getUser() : User {
-    if(this.hasUser()) {
+    console.log(this.isLogged)
+    if(this.isLogged) {
       return JSON.parse(localStorage.getItem('user'));
     } else {
       return null;
     }
   }
-
+  public isConnected() :boolean {
+    const token =  JSON.parse(localStorage.getItem('token'));
+    const refreshtoken =  JSON.parse(localStorage.getItem('refreshtoken'));
+    if(token && refreshtoken) {
+      if(token.expiresIn < new Date().getTime() && refreshtoken.expiresIn<new Date().getTime()){
+        this.isLogged$.next(false)
+        return false
+      }else{
+        this.isLogged$.next(true)
+        return true
+      }
+    } else {
+      this.isLogged$.next(false)
+      return false
+    }
+  }
   getUserName(): string{
-    if(this.hasUser()) {
+    if(this.isLogged) {
       return JSON.parse(localStorage.getItem('user')).userName;
     } else {
       return null;
@@ -93,7 +110,7 @@ export class UserService implements UserServiceInterface{
   }
 
   getUserEmail(): string {
-    if(this.hasUser()) {
+    if(this.isLogged) {
       return JSON.parse(localStorage.getItem('user')).email;
     } else {
       return null;
@@ -104,21 +121,25 @@ export class UserService implements UserServiceInterface{
     return localStorage.getItem('token');
   }
 
-  public login(userName: string, password: string): Observable<any>{
+  public login(userName: string, password: string) : Observable<any>{
     let logged = new Subject<any>();
-
     let httpParams = new HttpParams()
     .set('userName', userName)
     .set('password', password);
-    this.http.get<any>("/api/user/login", {params: httpParams}).subscribe(response => {
-      response.fridge = this.mockFridge;
-      localStorage.setItem("user", JSON.stringify(response));   
+    this.http.get<any>("/api/user/login", {params: httpParams,observe:"response"}).subscribe(response => {
+      const user:User = response.body;
+      //user.fridge = this.mockFridge;
+      console.log(JSON.stringify(response.headers));
+      localStorage.setItem("user", JSON.stringify(user));   
+      localStorage.setItem("token", response.headers.get("authorization"));   
+      localStorage.setItem('refreshtoken', response.headers.get("refreshtoken"));   
+      this.isLogged = true;
+      this.isLogged$.next(true);
       logged.next(response);
     }, error => {
-      logged.error(error);
+      this.isLogged$.error(error);
     });
     return logged.asObservable();
-
   }
 
   register(login: string, email: string, password: string): Observable<any>{
@@ -139,14 +160,33 @@ export class UserService implements UserServiceInterface{
 
     return result.asObservable();
   }
-
-  public logout(): Observable<any>{
-    return this.http.get<any>("/api/user/logout");
+  public update(user :User) {
+    let updated = new Subject<any>();
+    // add body to update
+    
+    this.http.put<any>("/api/user/"+user._id, user,{observe:"response"}).subscribe(response  => {
+      const user:User = response.body as User;
+      console.log(JSON.stringify(response.body))
+      localStorage.setItem("user", JSON.stringify(user));   
+      //return updated.asObservable();
+    }, error => {
+      console.log(error)
+      updated.next(error)
+    });
+    return updated.asObservable();
+  }
+  public logout(): void{
+   this.isLogged$.next(false)
+   this.isLogged = false;
+   this.http.get<any>("/api/user/logout");
   }
 
 
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+  ) {
+    this.isLogged$.next(this.isConnected())
+    this.isLogged = this.isConnected();
+   }
 }

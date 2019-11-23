@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
     <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
       <div>
-        <button mat-icon-button (click)="toggleSidenav()" *ngIf="showToggleSidenav()">
+        <button mat-icon-button (click)="toggleSidenav()" *ngIf="(isLogged | async )">
           <mat-icon>menu</mat-icon>
         </button>
         <span fxHide.xs>Adopte un frigo</span>
@@ -19,7 +19,7 @@
           <mat-icon>search</mat-icon>
         </button>
       </div>
-      <div *ngIf="isUserConnected()" fxHide.xs>
+      <div *ngIf="(isLogged | async )" fxHide.xs>
         <mat-menu #rightMenu="matMenu">
           <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
@@ -28,7 +28,7 @@
         </button>
       </div>
       
-      <div *ngIf="!isUserConnected()" fxHide.xs>
+      <div *ngIf="!(isLogged | async )" fxHide.xs>
         <button mat-button (click)="openDialog()">Nous rejoindre</button>
       </div>
       

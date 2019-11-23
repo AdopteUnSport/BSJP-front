@@ -1,6 +1,12 @@
-import { ShoppingListItem } from './shopping-list-item';
+
+import { Ingredient } from './ingredient';
 
 export class ShoppingList {
-    id: number;
-    items : Array<ShoppingListItem>;
+    _id?: string;
+    name? : string;
+    archived? : Boolean
+    items? : Array<Ingredient>;
+    reNew?:Boolean;
+    periode? : string; 
+    saved? : Boolean
 }

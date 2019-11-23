@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService, UserServiceInterface } from 'src/app/core/services/user.service';
 import { SnackService, SnackServiceInterface } from 'src/app/core/services/snack.service';
 import { Router} from '@angular/router';
+import { Observable, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-auth-dialog',
@@ -24,13 +25,15 @@ export class AuthDialogComponent implements OnInit {
   });
 
   isPasswordVisible: boolean = false;
-
+  public isLogged : Observable<Boolean>;
   constructor(
     public dialogRef: MatDialogRef<AuthDialogComponent>,
    @Inject(UserService) private userService : UserServiceInterface,
    @Inject(Router) private router: Router,
    @Inject(SnackService) private snackService: SnackServiceInterface,
-  ) { }
+  ) { 
+    this.isLogged=this.userService.isLogged$.asObservable()
+  }
 
   ngOnInit() {
 
@@ -55,12 +58,14 @@ export class AuthDialogComponent implements OnInit {
 
   submitConnexion(){
     if(this.connexionForm.valid) {
-      this.userService.login(
-        this.connexionForm.get('userName').value,
-        this.connexionForm.get('password').value
-        ).subscribe(response => {
+      console.log("test1")
+      combineLatest(
+        this.userService.login(this.connexionForm.get('userName').value, this.connexionForm.get('password').value),
+        this.isLogged
+      ).subscribe(([res,log]) =>{
+        console.log("test"+res)
           this.router.navigate(['dashboard']);
-          this.snackService.success("Hello world");
+          this.snackService.success("Bienvenu");
           this.dialogRef.close();
         }, error => {
           this.snackService.error("Erreur ! Login ou mot de passe incorrect");

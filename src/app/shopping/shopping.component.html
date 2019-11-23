@@ -1,3 +1,100 @@
-<p>
-  shopping works!
-</p>
+<div id= "shoppingListDiv">
+    <table mat-table id="shoppingList" [dataSource]="dataSource" class="mat-elevation-z8" >
+
+        <ng-container matColumnDef="nameOfTheList">
+          <th mat-header-cell *matHeaderCellDef>Nom de la liste    </th>
+          <td mat-cell *matCellDef="let element"><mat-form-field class="example-full-width">
+            <input matInput placeholder="Nom de la liste" (change)="changeIcone(element)" [(ngModel)]="element.name">
+          </mat-form-field> </td>
+        </ng-container>
+      
+       
+        <ng-container matColumnDef="reNew">
+          <th mat-header-cell *matHeaderCellDef> Renouvelable </th>
+          <td mat-cell *matCellDef="let element"> <input type="checkbox" [(ngModel)]="element.reNew" name="reNew"> </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="periode">
+          <th mat-header-cell *matHeaderCellDef> periode </th>
+          <td mat-cell *matCellDef="let element"> <mat-form-field>
+            <mat-label>Recurrence</mat-label>
+            <mat-select [(ngModel)]="element.periode">
+              <mat-option *ngFor="let periode of periodList" [value]="periode">
+                {{periode}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="archive">
+          <th mat-header-cell *matHeaderCellDef> Archiver  </th>
+          <td mat-cell *matCellDef="let element">  <button mat-raised-button color="primary">Archiver</button></td>
+        </ng-container>
+      
+        <ng-container  matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Save/Delete </th>
+          <td mat-cell *matCellDef="let element">   
+            <button *ngIf="!element.saved" mat-mini-fab color="primary" (click)="save(element)"><i class="material-icons">save_alt</i></button>
+            <button *ngIf="element.saved" mat-mini-fab color="primary" (click)="delete(element)"><i class="material-icons">delete</i></button>
+            <mat-icon mat-list-icon style="
+                position: relative;
+                left: 50%;">help</mat-icon> </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)='showList(row)'></tr>
+      </table>
+      <button mat-mini-fab color="primary" id="addShoppingList" (click)=onClick()><i class="material-icons">add_shopping_cart</i></button>
+      
+</div>
+ 
+
+
+
+<div  id='shoppingListItemsDiv'  *ngIf ='displayList' >
+  <table mat-table id='shoppingListItems' [dataSource]="dataSourceByShoppingList"class="mat-elevation-z8" >
+
+  <ng-container matColumnDef="name" >
+    <th mat-header-cell *matHeaderCellDef>Nom</th>
+    <td mat-cell *matCellDef="let element">
+        <button  *ngIf="element.name=='Ajouté à votre liste'" mat-raised-button color="primary" id="addItems" (click)=onClickItems(selectedLineIndex)>Ajouté à votre liste</button>
+      <mat-form-field *ngIf="element.name!=='Ajouté à votre liste'" class="example-full-width">
+      <input  matInput placeholder="Nom" (change)="changeIcone(element)" [(ngModel)]="element.name">
+    
+    </mat-form-field> </td>
+  </ng-container>
+
+ 
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Quantité </th>
+    <td mat-cell *matCellDef="let element"> <input *ngIf="element.name!=='Ajouté à votre liste'" type="checkbox" [(ngModel)]="element.quantity" name="quantity"> </td>
+  </ng-container>
+
+  <ng-container matColumnDef="unités de mesure">
+    <th mat-header-cell *matHeaderCellDef> Unités de mesure </th>
+    <td mat-cell *matCellDef="let element"> <mat-form-field *ngIf="element.name!=='Ajouté à votre liste'">
+      <mat-label >Unités de mesure</mat-label>
+      <mat-select  [(ngModel)]="element.unity">
+        <mat-option *ngFor="let unity of periodList" [value]="unity">
+          {{unity}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> </td>
+  </ng-container>
+
+  <ng-container  matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Save/Delete </th>
+    <td mat-cell *matCellDef="let element">   
+      <button *ngIf="!element.saved && element.name!=='Ajouté à votre liste'" mat-mini-fab color="primary" (click)="save(element)"><i class="material-icons">save_alt</i></button>
+      <button *ngIf="element.saved && element.name!=='Ajouté à votre liste'" mat-mini-fab color="primary" (click)="delete(element)"><i class="material-icons">delete</i></button>
+      <button  *ngIf="!element.saved && element.name!=='Ajouté à votre liste'" style="
+      position: relative;
+      left: 50%;" mat-icon-button >
+          <mat-icon mat-list-icon  (click)=removeLineItems(element)>clear</mat-icon> 
+        </button>
+      </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumnsByShoppingList"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumnsByShoppingList;" ></tr>
+</table>
+
+</div>

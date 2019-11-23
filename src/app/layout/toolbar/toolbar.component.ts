@@ -5,6 +5,7 @@ import { UserService } from 'src/app/core/services/user.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { AuthDialogComponent } from '../../core/components/dialog/auth-dialog/auth-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-toolbar',
@@ -12,13 +13,13 @@ import { AuthDialogComponent } from '../../core/components/dialog/auth-dialog/au
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-
+  public isLogged : Observable<boolean>;
   public toggleSidenav(){
     this.navigationService.toggle();
   }
 
   public isUserConnected(){
-    return this.userService.hasUser();
+    return this.userService.isConnected();
   }
 
   public showToggleSidenav() {
@@ -33,11 +34,11 @@ export class ToolbarComponent implements OnInit {
   }
 
   public logout(){
-    this.userService.logout().subscribe(response => {
-      localStorage.clear();
-      this.router.navigate(['welcome']);
-      this.navigationService.close();
-    })
+    this.userService.logout();
+    localStorage.clear();
+    this.router.navigate(['welcome']);
+    this.navigationService.close();
+  
   }
 
   constructor(
@@ -45,7 +46,9 @@ export class ToolbarComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     public dialog: MatDialog
-  ) { }
+  ) {
+    this.isLogged=this.userService.isLogged$.asObservable()
+   }
 
   ngOnInit() {
     

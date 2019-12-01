@@ -28,11 +28,11 @@ export class ShoppingComponent implements OnInit {
      name: "Ajouté à votre liste"
    }as Ingredient
 
-   if(shoppingList.items){
-      shoppingList.items.push(add)
+   if(shoppingList.shoppingList){
+      shoppingList.shoppingList.push(add)
     }else{
-      shoppingList.items=[];
-      shoppingList.items.push(add)
+      shoppingList.shoppingList=[];
+      shoppingList.shoppingList.push(add)
     }
     return {...shoppingList,'saved':true}
   })
@@ -75,19 +75,31 @@ export class ShoppingComponent implements OnInit {
       "unity":"",
       "saved":false
     } as Ingredient
-    if(this.shoppingList[index].items){
-      this.shoppingList[index].items.unshift(newShoppingList)
+    if(this.shoppingList[index].shoppingList){
+      this.shoppingList[index].shoppingList.unshift(newShoppingList)
     }else{
-      this.shoppingList[index].items=[];
-      this.shoppingList[index].items.unshift(newShoppingList)
+      this.shoppingList[index].shoppingList=[];
+      this.shoppingList[index].shoppingList.unshift(newShoppingList)
     }
    
-    this.dataSourceByShoppingList = new MatTableDataSource(this.shoppingList[index].items);
+    this.dataSourceByShoppingList = new MatTableDataSource(this.shoppingList[index].shoppingList);
   }
   public removeLineItems(ingredient :Ingredient){
-    const index = this.shoppingList[this.selectedLineIndex].items.findIndex(x=>x===ingredient)
-    this.shoppingList[this.selectedLineIndex].items.splice(index,1)
-    this.dataSourceByShoppingList = new MatTableDataSource(this.shoppingList[this.selectedLineIndex].items)
+  
+    const index = this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x._id===ingredient._id)
+    this.shoppingList[this.selectedLineIndex].shoppingList.splice(index,1)
+    const indexToRemove =   this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+    if(indexToRemove!==-1){
+      this.shoppingList[this.selectedLineIndex].shoppingList.splice(indexToRemove,1);
+    }
+      const user = this.userService.getUser();
+      user.shoppingList=this.shoppingList;
+      this.userService.update(user).subscribe(res =>{
+        console.log(JSON.stringify(this.shoppingList[this.selectedLineIndex].shoppingList))
+        this.shoppingList[this.selectedLineIndex].shoppingList[this.shoppingList[this.selectedLineIndex].shoppingList.length]={'name': "Ajouté à votre liste"}
+        this.dataSourceByShoppingList=new MatTableDataSource(this.shoppingList[this.selectedLineIndex].shoppingList)
+      })
+  
   }
   public delete(shoppingList : ShoppingList) {
     this.shoppingList.splice( this.shoppingList.indexOf(shoppingList),1)
@@ -112,6 +124,26 @@ export class ShoppingComponent implements OnInit {
   public showList(shoppingList : ShoppingList) {
     this.displayList=true;
     this.selectedLineIndex = this.shoppingList.findIndex(x=> x===shoppingList)
-    this.dataSourceByShoppingList = new MatTableDataSource(shoppingList.items)
+    this.dataSourceByShoppingList = new MatTableDataSource(shoppingList.shoppingList)
   }
+  public saveItemInShoppingList(ingredient : Ingredient) {
+    if(ingredient.name){
+      this.shoppingList
+      const user = this.userService.getUser();
+      const indexToRemove =   this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+      if(indexToRemove!==-1){
+        this.shoppingList[this.selectedLineIndex].shoppingList.splice(indexToRemove,1);
+      }
+      user.shoppingList=this.shoppingList;
+      this.userService.update(user).subscribe(res =>{
+        this.shoppingList[this.selectedLineIndex].shoppingList[this.shoppingList[this.selectedLineIndex].shoppingList.length]={'name': "Ajouté à votre liste"}
+   
+        this.dataSourceByShoppingList=new MatTableDataSource(this.shoppingList[this.selectedLineIndex].shoppingList)
+      })
+    
+    }
+
+    
+  }
+ 
 }

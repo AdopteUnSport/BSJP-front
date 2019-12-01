@@ -166,13 +166,14 @@ export class UserService implements UserServiceInterface{
     
     this.http.put<any>("/api/user/"+user._id, user,{observe:"response"}).subscribe(response  => {
       const user:User = response.body as User;
-      console.log(JSON.stringify(response.body))
       localStorage.setItem("user", JSON.stringify(user));   
-      //return updated.asObservable();
+      console.log("test")
+      updated.next(response)
     }, error => {
       console.log(error)
       updated.next(error)
     });
+    console.log("test2")
     return updated.asObservable();
   }
   public logout(): void{

@@ -128,7 +128,7 @@ export class UserService implements UserServiceInterface{
     .set('password', password);
     this.http.get<any>("/api/user/login", {params: httpParams,observe:"response"}).subscribe(response => {
       const user:User = response.body;
-      //user.fridge = this.mockFridge;
+      user.fridge = this.mockFridge;
       console.log(JSON.stringify(response.headers));
       localStorage.setItem("user", JSON.stringify(user));   
       localStorage.setItem("token", response.headers.get("authorization"));   

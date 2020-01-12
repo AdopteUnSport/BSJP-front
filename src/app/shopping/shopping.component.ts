@@ -22,16 +22,13 @@ export class ShoppingComponent implements OnInit {
   public dataSourceByShoppingList;
   public selectedLineIndex=0;
   ngOnInit() {
-  this.shoppingList = this.userService.getUser().shoppingList;
+  this.shoppingList = this.userService.getUser().shoppingList.filter(x=>x.archived!==true);
  this.shoppingList= this.shoppingList.map(shoppingList =>{
    const add = {
      name: "Ajouté à votre liste"
    }as Ingredient
 
    if(shoppingList.shoppingList){
-      shoppingList.shoppingList.push(add)
-    }else{
-      shoppingList.shoppingList=[];
       shoppingList.shoppingList.push(add)
     }
     return {...shoppingList,'saved':true}
@@ -42,7 +39,8 @@ export class ShoppingComponent implements OnInit {
       "name":"",
       "reNew":false,
       "periode":"",
-      "saved":false
+      "saved":false,
+      "shoppingList":[{'name': "Ajouté à votre liste"}]
     }
     this.shoppingList.push(newShoppingList)
   }
@@ -55,6 +53,25 @@ export class ShoppingComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.shoppingList)
 
   }
+  public archived(shoppingList : ShoppingList) {
+    const index = this.shoppingList.indexOf(shoppingList)
+    this.shoppingList[index].archived=true;
+    const user = this.userService.getUser();
+    this.shoppingList=this.shoppingList.map(shoppingList=>{
+      const index = shoppingList.shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+      if(index!==-1){
+        shoppingList.shoppingList.splice(index,1)
+      }
+      return shoppingList
+    })
+    user.shoppingList=this.shoppingList;
+    this.userService.update(user).subscribe(res=>{
+      const user = this.userService.getUser();
+      this.shoppingList =  user.shoppingList
+    })
+    this.shoppingList.splice( index,1)
+    this.dataSource = new MatTableDataSource(this.shoppingList)
+  }
   public onClick() {
     const newShoppingList = {
       "name":"",
@@ -62,8 +79,8 @@ export class ShoppingComponent implements OnInit {
       "periode":"",
       "archived":false,
       "saved":false,
-      "items":[{'name': "Ajouté à votre liste"}]
-    }
+      "shoppingList":[{'name': "Ajouté à votre liste"}]
+    } as ShoppingList
     console.log("add element")
     this.shoppingList.push(newShoppingList);
     this.dataSource = new MatTableDataSource(this.shoppingList);
@@ -115,6 +132,13 @@ export class ShoppingComponent implements OnInit {
     const index = this.shoppingList.indexOf(shoppingList)
     this.shoppingList[index].saved=true;
     const user = this.userService.getUser();
+    this.shoppingList=this.shoppingList.map(shoppingList=>{
+      const index = shoppingList.shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+      if(index!==-1){
+        shoppingList.shoppingList.splice(index,1)
+      }
+      return shoppingList
+    })
     user.shoppingList=this.shoppingList;
     this.userService.update(user).subscribe(res=>{
       this.shoppingList[index].saved=true;
@@ -128,12 +152,15 @@ export class ShoppingComponent implements OnInit {
   }
   public saveItemInShoppingList(ingredient : Ingredient) {
     if(ingredient.name){
-      this.shoppingList
+      this.shoppingList[this.selectedLineIndex].saved=true
       const user = this.userService.getUser();
-      const indexToRemove =   this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
-      if(indexToRemove!==-1){
-        this.shoppingList[this.selectedLineIndex].shoppingList.splice(indexToRemove,1);
-      }
+      this.shoppingList=this.shoppingList.map(shoppingList=>{
+        const index = shoppingList.shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+        if(index!==-1){
+          shoppingList.shoppingList.splice(index,1)
+        }
+        return shoppingList
+      })
       user.shoppingList=this.shoppingList;
       this.userService.update(user).subscribe(res =>{
         this.shoppingList[this.selectedLineIndex].shoppingList[this.shoppingList[this.selectedLineIndex].shoppingList.length]={'name': "Ajouté à votre liste"}

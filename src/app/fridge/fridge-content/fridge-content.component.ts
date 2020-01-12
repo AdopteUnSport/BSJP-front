@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class FridgeContentComponent  {
   @Input() fridge : Observable<Ingredient[]>;
-  displayedColumns: string[] = ['Image', 'Name', 'Quantity', 'Plat réalisable'];
+  displayedColumns: string[] = ['Image', 'Name', 'Quantity', 'Plat réalisable','Delete'];
   constructor() { }
 
 }

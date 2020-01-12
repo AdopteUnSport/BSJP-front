@@ -1,7 +1,7 @@
 import { Ingredient } from './ingredient';
 
 export class ShoppingListItem {
-    id: number;
+    _id: number;
     ingredient: Ingredient;
     quantity: number;
     added: boolean;

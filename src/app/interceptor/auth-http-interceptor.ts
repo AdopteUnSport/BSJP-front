@@ -13,11 +13,22 @@ export class AuthHttpInterceptor implements HttpInterceptor{
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(req);
-        const authReq = req.clone({
+        
+        const authorization = localStorage.getItem("token")
+        const refreshtoken = localStorage.getItem("refreshtoken")
+        let authReq
+        if(authorization || refreshtoken){
+           authReq = req.clone({
             headers: req.headers
             .set('Content-type', 'application/json')
+            .set("authorization",authorization)
+            .set("refreshToken",refreshtoken)
           });
-
-          return next.handle(req);
+        }else{
+           authReq =req
+        }
+        
+          console.log("req"+JSON.stringify(authReq)); // to do check middleware back
+          return next.handle(authReq);
     }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ShoppingList } from '../core/models/shopping-list';
 import {  UserService } from '../core/services/user.service';
 import { MatTableDataSource } from '@angular/material';
-import { ThrowStmt } from '@angular/compiler';
 import { Ingredient } from '../core/models/ingredient';
 @Component({
   selector: 'app-shopping',
@@ -68,6 +67,16 @@ export class ShoppingComponent implements OnInit {
     this.userService.update(user).subscribe(res=>{
       const user = this.userService.getUser();
       this.shoppingList =  user.shoppingList
+      this.shoppingList= this.shoppingList.map(shoppingList =>{
+        const add = {
+          name: "Ajouté à votre liste"
+        }as Ingredient
+     
+        if(shoppingList.shoppingList){
+           shoppingList.shoppingList.push(add)
+         }
+         return {...shoppingList,'saved':true}
+       })
     })
     this.shoppingList.splice( index,1)
     this.dataSource = new MatTableDataSource(this.shoppingList)
@@ -105,15 +114,27 @@ export class ShoppingComponent implements OnInit {
   
     const index = this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x._id===ingredient._id)
     this.shoppingList[this.selectedLineIndex].shoppingList.splice(index,1)
-    const indexToRemove =   this.shoppingList[this.selectedLineIndex].shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
-    if(indexToRemove!==-1){
-      this.shoppingList[this.selectedLineIndex].shoppingList.splice(indexToRemove,1);
-    }
+    this.shoppingList=this.shoppingList.map(shoppingList=>{
+      const index = shoppingList.shoppingList.findIndex(x=>x.name==="Ajouté à votre liste")
+      if(index!==-1){
+        shoppingList.shoppingList.splice(index,1)
+      }
+      return shoppingList
+    })
+    
       const user = this.userService.getUser();
       user.shoppingList=this.shoppingList;
       this.userService.update(user).subscribe(res =>{
-        console.log(JSON.stringify(this.shoppingList[this.selectedLineIndex].shoppingList))
-        this.shoppingList[this.selectedLineIndex].shoppingList[this.shoppingList[this.selectedLineIndex].shoppingList.length]={'name': "Ajouté à votre liste"}
+        this.shoppingList= this.shoppingList.map(shoppingList =>{
+          const add = {
+            name: "Ajouté à votre liste"
+          }as Ingredient
+       
+          if(shoppingList.shoppingList){
+             shoppingList.shoppingList.push(add)
+           }
+           return {...shoppingList,'saved':true}
+         })
         this.dataSourceByShoppingList=new MatTableDataSource(this.shoppingList[this.selectedLineIndex].shoppingList)
       })
   
@@ -125,6 +146,16 @@ export class ShoppingComponent implements OnInit {
     this.userService.update(user).subscribe(res=>{
       const user = this.userService.getUser();
       this.shoppingList =  user.shoppingList
+      this.shoppingList= this.shoppingList.map(shoppingList =>{
+        const add = {
+          name: "Ajouté à votre liste"
+        }as Ingredient
+     
+        if(shoppingList.shoppingList){
+           shoppingList.shoppingList.push(add)
+         }
+         return {...shoppingList,'saved':true}
+       })
     })
     this.dataSource = new MatTableDataSource(this.shoppingList)
   }
@@ -141,7 +172,16 @@ export class ShoppingComponent implements OnInit {
     })
     user.shoppingList=this.shoppingList;
     this.userService.update(user).subscribe(res=>{
-      this.shoppingList[index].saved=true;
+      this.shoppingList= this.shoppingList.map(shoppingList =>{
+        const add = {
+          name: "Ajouté à votre liste"
+        }as Ingredient
+     
+        if(shoppingList.shoppingList){
+           shoppingList.shoppingList.push(add)
+         }
+         return {...shoppingList,'saved':true}
+       })
     })
     this.dataSource = new MatTableDataSource(this.shoppingList)
   }
@@ -163,8 +203,16 @@ export class ShoppingComponent implements OnInit {
       })
       user.shoppingList=this.shoppingList;
       this.userService.update(user).subscribe(res =>{
-        this.shoppingList[this.selectedLineIndex].shoppingList[this.shoppingList[this.selectedLineIndex].shoppingList.length]={'name': "Ajouté à votre liste"}
-   
+        this.shoppingList= this.shoppingList.map(shoppingList =>{
+          const add = {
+            name: "Ajouté à votre liste"
+          }as Ingredient
+       
+          if(shoppingList.shoppingList){
+             shoppingList.shoppingList.push(add)
+           }
+           return {...shoppingList,'saved':true}
+         })
         this.dataSourceByShoppingList=new MatTableDataSource(this.shoppingList[this.selectedLineIndex].shoppingList)
       })
     

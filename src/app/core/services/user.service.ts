@@ -33,7 +33,7 @@ export class UserService implements UserServiceInterface{
   public isLogged : boolean = false;
   public mockFridge:Ingredient[]=[
     {
-      _id : 'azdazazdzdazsqd2qsd15',
+      _id : '5e1ba864c21c2a4f88af8e52',
       category:{
         _id: "dazdazdazdaz",
         name: "viandes"
@@ -44,7 +44,7 @@ export class UserService implements UserServiceInterface{
       tags: ["bacon","porc","viande","hallouf"]
     },
     {
-      _id : "azdazazdzdazsqd2qsd15",
+      _id : "5e1ba864c21c2a4f88af8e53",
       category:{
         _id: "dazdazdazdaz",
         name: "légumes"
@@ -54,7 +54,7 @@ export class UserService implements UserServiceInterface{
       tags: ["légume","piments","legume","piment vert"]
     },
     {
-      _id : "azdazazdzdazsqd2qsd15",
+      _id : "5e1ba864c21c2a4f88af8e54",
       category:{
         _id: "dazdazdazdaz",
         name: "poissons"
@@ -64,7 +64,7 @@ export class UserService implements UserServiceInterface{
       tags: ["poisson","rose","gras","fumé"]
     },
     {
-      _id : "azdazazdzdazsqd2qsd15",
+      _id : "5e1ba864c21c2a4f88af8e55",
       category:{
         _id: "dazdazdazdaz",
         name: "fruits"
@@ -128,7 +128,9 @@ export class UserService implements UserServiceInterface{
     .set('password', password);
     this.http.get<any>("/api/user/login", {params: httpParams,observe:"response"}).subscribe(response => {
       const user:User = response.body;
-      user.fridge = this.mockFridge;
+      if(user.fridge.length===0){
+        user.fridge = this.mockFridge;
+      }
       console.log(JSON.stringify(response.headers));
       localStorage.setItem("user", JSON.stringify(user));   
       localStorage.setItem("token", response.headers.get("authorization"));   

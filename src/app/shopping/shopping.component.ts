@@ -107,7 +107,6 @@ export class ShoppingComponent implements OnInit {
       this.shoppingList[index].shoppingList=[];
       this.shoppingList[index].shoppingList.unshift(newShoppingList)
     }
-   
     this.dataSourceByShoppingList = new MatTableDataSource(this.shoppingList[index].shoppingList);
   }
   public removeLineItems(ingredient :Ingredient){

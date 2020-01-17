@@ -5,6 +5,7 @@ export class Ingredient {
     category?: ICategory;
     name: string;
     quantity?: number;
+    unity?:string;
     tags?: Array<string>;
     image?:string;
     saved?: boolean;

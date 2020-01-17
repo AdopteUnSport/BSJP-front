@@ -19,6 +19,10 @@ export class FridgeComponent implements OnInit {
     this.fridge.forEach( async ingredient =>{
       ingredient.image ='https://c7.uihere.com/icons/710/1020/1010/bacon-food-meat-icon-91accb04fad4f54e4b1ab2db985a23d8.png' // await this.imageService.getImageByTags(ingredient.tags);
     })
+    const add = {
+        name: "Ajouté à votre liste"
+    }as Ingredient
+    this.fridge.push(add)
   }
   public tabChanged($event) {
     switch($event){
